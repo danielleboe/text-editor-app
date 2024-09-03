@@ -1,2 +1,1 @@
-# text-editor-app
-Text editor app
+# Text Editor Starter Code
