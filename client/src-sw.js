@@ -8,7 +8,7 @@ import { offlineFallback } from 'workbox-recipes';
 // Cache name
 const CACHE_NAME = 'text-editor-cache-v1';
 
-// Precache and route files
+// Precache and route filesgi
 precacheAndRoute(self.__WB_MANIFEST);
 
 // Activate event - Remove old caches
