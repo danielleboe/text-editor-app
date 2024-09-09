@@ -4,7 +4,6 @@ const path = require("path");
 const { InjectManifest } = require("workbox-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-// const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = () => {
   return {
@@ -30,7 +29,7 @@ module.exports = () => {
         filename: "style.css",
       }),
       new InjectManifest({
-        swSrc: path.resolve(__dirname, "./client/src-sw.js"), // Ensure path is correct
+        swSrc: path.resolve(__dirname, "./client/src-sw.js"), // Ensure this path is correct
         swDest: "service-worker.js",
       }),
       new WebpackPwaManifest({
@@ -43,7 +42,7 @@ module.exports = () => {
         publicPath: "/",
         icons: [
           {
-            src: path.resolve(__dirname, "./client/src/images/logo.png"), // Ensure path is correct
+            src: path.resolve(__dirname, "./client/src/images/logo.png"), // Ensure this path is correct
             sizes: [96, 128, 192, 256, 384, 512],
             destination: path.join("icons"),
           },
@@ -55,7 +54,6 @@ module.exports = () => {
           { from: 'client/offline.html', to: '' }, // Copy offline.html to the root of dist
         ],
       }),
-      // new CleanWebpackPlugin(), // Ensure old builds are cleaned
     ],
     module: {
       rules: [
