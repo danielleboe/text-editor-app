@@ -1,7 +1,7 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
 const path = require("path");
-const { InjectManifest } = require("workbox-webpack-plugin");
+const InjectManifest = require("workbox-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
@@ -52,6 +52,9 @@ module.exports = () => {
         patterns: [
           { from: 'client/manifest.json', to: '' }, // Copy manifest.json to the root of dist
           { from: 'client/offline.html', to: '' }, // Copy offline.html to the root of dist
+          { from: 'client/src/images/', to: 'images/' }, // Copy all images to the images folder in dist
+          { from: 'client/src/icons/', to: 'icons/' }, // Copy all icons to the icons folder in dist
+          { from: 'client/favicon.ico', to: '' }, // Copy favicon.ico to the root of dist
         ],
       }),
     ],

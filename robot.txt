@@ -1,0 +1,7 @@
+# Block all web crawlers from accessing the entire site
+User-agent: *
+Disallow: /
+
+# Allow all web crawlers to access the /public/ directory
+User-agent: *
+Allow: /public/
