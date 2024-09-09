@@ -4,7 +4,7 @@ const path = require("path");
 const { InjectManifest } = require("workbox-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+// const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = () => {
   return {
@@ -55,7 +55,7 @@ module.exports = () => {
           { from: 'client/offline.html', to: '' }, // Copy offline.html to the root of dist
         ],
       }),
-      new CleanWebpackPlugin(), // Ensure old builds are cleaned
+      // new CleanWebpackPlugin(), // Ensure old builds are cleaned
     ],
     module: {
       rules: [
