@@ -4,15 +4,21 @@ const path = require("path");
 const { InjectManifest } = require("workbox-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
 module.exports = () => {
   return {
     mode: "development",
+    optimization: {
+      usedExports: true, // Enable tree shaking
+    },
+    devtool: "inline-source-map", // Ensure source maps are enabled
     entry: {
       main: "./client/src/js/index.js",
       install: "./client/src/js/install.js",
     },
     output: {
-      filename: "[name].bundle.js",
+      filename: "[name].[contenthash].bundle.js",
       path: path.resolve(__dirname, "dist"),
     },
     plugins: [
@@ -46,10 +52,10 @@ module.exports = () => {
       new CopyWebpackPlugin({
         patterns: [
           { from: 'client/manifest.json', to: '' }, // Copy manifest.json to the root of dist
+          { from: 'client/offline.html', to: '' }, // Copy offline.html to the root of dist
         ],
       }),
-
-
+      new CleanWebpackPlugin(), // Ensure old builds are cleaned
     ],
     module: {
       rules: [
@@ -79,6 +85,13 @@ module.exports = () => {
       },
       compress: true,
       port: 9000,
+      hot: true, // Ensure hot module replacement is enabled
+      watchFiles: {
+        paths: ['client/src/**/*'],
+        options: {
+          usePolling: true, // Sometimes helps with file watching issues
+        },
+      }, // Ensure proper watchings
     },
   };
 };
