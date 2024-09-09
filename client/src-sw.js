@@ -1,4 +1,4 @@
-import { precacheAndRoute } from 'workbox-precaching/precacheAndRoute';
+import { precacheAndRoute } from 'workbox-precaching';
 import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 import { registerRoute } from 'workbox-routing';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
