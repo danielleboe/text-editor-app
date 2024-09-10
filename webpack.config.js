@@ -1,9 +1,10 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
 const path = require("path");
-const InjectManifest = require("workbox-webpack-plugin");
+const { InjectManifest } = require("workbox-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { Compilation } = require('webpack');
 
 module.exports = () => {
   return {
@@ -53,10 +54,26 @@ module.exports = () => {
           { from: 'client/manifest.json', to: '' }, // Copy manifest.json to the root of dist
           { from: 'client/offline.html', to: '' }, // Copy offline.html to the root of dist
           { from: 'client/src/images/', to: 'images/' }, // Copy all images to the images folder in dist
-          { from: 'client/src/icons/', to: 'icons/' }, // Copy all icons to the icons folder in dist
           { from: 'client/favicon.ico', to: '' }, // Copy favicon.ico to the root of dist
         ],
       }),
+      {
+        apply: (compiler) => {
+          compiler.hooks.compilation.tap('MyCustomPlugin', (compilation) => {
+            compilation.hooks.processAssets.tap(
+              {
+                name: 'MyCustomPlugin',
+                stage: Compilation.PROCESS_ASSETS_STAGE_ADDITIONS, // Adjust stage as needed
+              },
+              (assets) => {
+                // Custom logic for processing assets
+                // Example: log the assets
+                console.log('Assets:', assets);
+              }
+            );
+          });
+        },
+      },
     ],
     module: {
       rules: [
@@ -87,6 +104,7 @@ module.exports = () => {
       compress: true,
       port: 9000,
       hot: true, // Ensure hot module replacement is enabled
+      // https: true,
       watchFiles: {
         paths: ['client/src/**/*'],
         options: {

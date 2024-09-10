@@ -1,5 +1,5 @@
 # Text Editor Starter Code
-- Github link:
+- Github repo link: https://github.com/danielleboe/text-editor-app
 - Live application:
 
 ## Description
@@ -39,11 +39,11 @@ A progressive web application text editor application
 
 
 ## Demo Video & Screen Shots
-
+![Homepage](https://file%2B.vscode-resource.vscode-cdn.net/Users/danielleboenisch/workspace/bootcamp/Challenge-19/text-editor-app/client/src/images/Screenshot%202024-09-09%20at%2012.59.01%E2%80%AFPM.png?version%3D1725930746665)
 
 ## Author
 Danielle Boenisch
-Github:
+Github: https://github.com/danielleboe
 Email: danielleboenisch@gmail.com
 
 ## License
