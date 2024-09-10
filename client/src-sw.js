@@ -1,5 +1,5 @@
 import { precacheAndRoute } from 'workbox-precaching/precacheAndRoute';
-import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
+import { CacheFirst, StaleWhileRevalidate, NetworkFirst } from 'workbox-strategies';
 import { registerRoute } from 'workbox-routing';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 import { ExpirationPlugin } from 'workbox-expiration';
@@ -62,6 +62,16 @@ registerRoute(
     ],
   })
 );
+
+
+// Cache install.bundle.js with CacheFirst strategy
+registerRoute(
+  ({ url }) => url.pathname === '/install.bundle.js',
+  new CacheFirst({
+    cacheName: 'install-cache',
+  })
+);
+
 
 // Fallback for offline usage
 offlineFallback({

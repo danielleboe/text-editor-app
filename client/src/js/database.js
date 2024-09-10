@@ -1,58 +1,37 @@
-import { openDB } from "idb";
+import { openDB } from 'idb';
 
-// Initialize the database
-const initdb = async () =>
-  openDB("jate", 1, {
+export const initdb = async () => {
+  // Create a new database named 'editorDb' with version 1
+  openDB('editorDb', 1, {
     upgrade(db) {
-      if (db.objectStoreNames.contains("jate")) {
-        console.log("jate database already exists");
+      if (db.objectStoreNames.contains('content')) {
+        console.log('content store already exists');
         return;
       }
-      db.createObjectStore("jate", { keyPath: "id", autoIncrement: true });
-      console.log("jate database created");
+      // Create a new object store named 'content' with a key named 'id' that will increment automatically
+      db.createObjectStore('content', { keyPath: 'id', autoIncrement: true });
+      console.log('content store created');
     },
   });
+};
 
-// Method to add content to the database
 export const putDb = async (content) => {
-  console.log("PUT to the database");
-  try {
-    // Create a connection to the database
-    const jateDb = await openDB("jate", 1);
-    // Create a new transaction and specify the store and data privileges
-    const tx = jateDb.transaction("jate", "readwrite");
-    // Open up the desired object store
-    const store = tx.objectStore("jate");
-    // Use the .put() method to add content to the store
-    const request = store.put({ id: 1, content });
-    // Confirm the request
-    const result = await request;
-    console.log("Data saved to the database", result);
-  } catch (error) {
-    console.error("Error saving data to the database", error);
-  }
+  console.log('PUT to the database');
+  const editorDb = await openDB('editorDb', 1);
+  const tx = editorDb.transaction('content', 'readwrite');
+  const store = tx.objectStore('content');
+  const request = store.put({ id: 1, content });
+  const result = await request;
+  console.log('🚀 - data saved to the database', result);
 };
 
-// Method to get all the content from the database
 export const getDb = async () => {
-  console.log("GET all from the database");
-try {
-    // Create a connection to the database
-    const jateDb = await openDB("jate", 1);
-    // Create a new transaction and specify the store and data privileges
-    const tx = jateDb.transaction("jate", "readonly");
-    // Open up the desired object store
-    const store = tx.objectStore("jate");
-    // Use the .getAll() method to get all data from the store
-    const request = store.getAll();
-    // Confirm the request
-    const result = await request;
-    console.log("Data retrieved from the database", result);
-    return result.length > 0 ? result[0].content : null;
-  } catch (error) {
-    console.error("Error retrieving data from the database", error);
-  }
+  console.log('GET from the database');
+  const editorDb = await openDB('editorDb', 1);
+  const tx = editorDb.transaction('content', 'readonly');
+  const store = tx.objectStore('content');
+  const request = store.get(1);
+  const result = await request;
+  console.log('result.value', result);
+  return result?.content;
 };
-
-// Initialize the database
-initdb();
