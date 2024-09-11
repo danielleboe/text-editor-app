@@ -8,7 +8,7 @@
     "server": "nodemon server.js",
     "dev": "webpack-dev-server --mode development",
     "build": "webpack --mode production",
-    "start": "node server.js"
+    "start": "npm run build && cd server && node server.js"
   },
   "keywords": [],
   "author": "",
