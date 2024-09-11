@@ -56,9 +56,9 @@ h1 {
   height: calc(100vh - var(--navbar-height));
 }
 
-#buttonInstall.hidden {
+/* #buttonInstall.hidden {
   display: none;
-}
+} */
 
 @keyframes rotate-forever {
   0% {
