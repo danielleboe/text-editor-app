@@ -76,13 +76,16 @@ let deferredPrompt;
 // TODO: Add an event handler to the `beforeinstallprompt` event
 window.addEventListener('beforeinstallprompt', (event) => {
     event.preventDefault();
+    console.log(`event - @@@@@@@@`, event);
     deferredPrompt = event;
     document.getElementById('buttonInstall').style.display = 'block';
 });
 
 // TODO: Implement a click event handler on the `install` element
 btnInstall.addEventListener('click', async () => {
+  console.log(`!!!!!!!!!!!!!!!!!!!!!`, deferredPrompt);
     if (deferredPrompt) {
+
       console.log('User response to the install prompt:', result);
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
